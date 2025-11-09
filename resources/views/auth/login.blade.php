@@ -5,34 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - Sistem Informasi</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Efek masuk halus */
-    .fade-in {
-      animation: fadeIn 0.8s ease forwards;
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Fokus label input */
-    .floating-label {
-      transition: all 0.2s ease;
-      pointer-events: none;
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-indigo-500 to-blue-700 text-gray-800">
+<body class="min-h-screen flex items-center justify-center bg-blue-600 text-blue-800">
 
   <!-- Kartu Login -->
-  <div id="loginCard" class="fade-in w-full max-w-md bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-8 mx-4">
-    <h2 class="text-3xl font-bold text-center text-gray-800 mb-6 tracking-tight">
-      Selamat Datang 👋
+  <div class="w-full max-w-md bg-white rounded-lg shadow-xl p-8 mx-4">
+    <!-- Logo -->
+    <div class="flex justify-center mb-6">
+      <img src="{{ asset('frontend/assets/images/iconfz.png')}}" alt="Logo" class="w-20 h-20">
+    </div>
+
+    <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">
+      Selamat Wellcome
     </h2>
 
     <!-- Alert -->
@@ -49,64 +35,58 @@
     @endif
 
     <!-- Form Login -->
-    <form id="loginForm" method="POST" action="{{ route('login.action') }}" class="space-y-6">
+    <form method="POST" action="{{ route('login.action') }}" class="space-y-6">
       @csrf
 
       <!-- Email -->
-      <div class="relative">
+      <div>
+        <label for="email" class="block text-gray-600 text-sm mb-1">Email</label>
         <input
           type="email"
           name="email"
           id="email"
           value="{{ old('email') }}"
           required
-          class="peer w-full px-4 pt-5 pb-2 border border-gray-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none placeholder-transparent transition"
-          placeholder="Email"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
+          placeholder="Masukkan email Anda"
         />
-        <label
-          for="email"
-          class="floating-label absolute left-4 top-3 text-gray-500 text-sm peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:-top-1 peer-focus:text-sm peer-focus:text-blue-500 bg-white px-1"
-        >Email</label>
       </div>
 
       <!-- Password -->
-      <div class="relative">
-        <input
-          type="password"
-          name="password"
-          id="password"
-          required
-          class="peer w-full px-4 pt-5 pb-2 border border-gray-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none placeholder-transparent transition"
-          placeholder="Password"
-        />
-        <label
-          for="password"
-          class="floating-label absolute left-4 top-3 text-gray-500 text-sm peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:-top-1 peer-focus:text-sm peer-focus:text-blue-500 bg-white px-1"
-        >Password</label>
+      <div>
+        <label for="password" class="block text-gray-600 text-sm mb-1">Password</label>
+        <div class="relative">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            required
+            class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
+            placeholder="Masukkan password Anda"
+          />
+          <i class="fas fa-eye-slash absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 hover:text-gray-600" id="togglePassword"></i>
+        </div>
       </div>
 
       <!-- Tombol -->
       <button
         type="submit"
-        class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-md relative overflow-hidden transition-transform transform hover:scale-[1.02]"
+        class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition"
       >
-        <span id="btnText">Masuk</span>
-        <div id="loader" class="hidden absolute inset-0 flex items-center justify-center bg-blue-700/80 rounded-xl">
-          <div class="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-        </div>
+        Masuk
       </button>
     </form>
   </div>
 
   <script>
-    // Tombol loading animasi
-    const form = document.getElementById('loginForm');
-    const btnText = document.getElementById('btnText');
-    const loader = document.getElementById('loader');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
 
-    form.addEventListener('submit', () => {
-      btnText.classList.add('hidden');
-      loader.classList.remove('hidden');
+    togglePassword.addEventListener('click', () => {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      togglePassword.classList.toggle('fa-eye');
+      togglePassword.classList.toggle('fa-eye-slash');
     });
   </script>
 </body>

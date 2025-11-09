@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
     /**
-     * Tampilkan halaman login.
+     * 🪪 Tampilkan halaman login.
      */
     public function index()
     {
@@ -17,11 +17,10 @@ class LoginController extends Controller
     }
 
     /**
-     * Proses login user.
+     * Proses autentikasi .
      */
     public function loginAction(Request $request)
     {
-        // Validasi input
         $request->validate([
             'email' => 'required|email',
             'password' => 'required'
@@ -29,36 +28,39 @@ class LoginController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        /*
-       login
-        */
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             $user = Auth::user();
-            
-            switch ($user->role) {
-                case 'admin':
-                    return redirect()->intended('/admin/dashboard')->with('success', 'Selamat datang, Admin!');
-                case 'petugas':
-                    return redirect()->intended('/petugas/dashboard')->with('success', 'Selamat datang, Petugas!');
-                case 'guru':
-                    return redirect()->intended('/guru/dashboard')->with('success', 'Selamat datang, Guru!');
-                default:
-                    Auth::logout();
-                    return redirect()->route('login')->withErrors('Role tidak dikenali.');
-            }
+
+            return $this->redirectByRole($user->role);
         }
-            /*
-           Jika login nanti gagal
-            */
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ])->onlyInput('email');
+
+        return back()
+            ->withErrors(['email' => 'Email atau password salah.'])
+            ->onlyInput('email');
     }
 
     /**
-     * Logout user dari sistem.
+     *
+     */
+    protected function redirectByRole(string $role)
+    {
+        switch ($role) {
+            case 'admin':
+                return redirect()->intended('/admin/dashboard')->with('success', 'Selamat datang, Admin!');
+            case 'petugas':
+                return redirect()->intended('/petugas/dashboard')->with('success', 'Selamat datang, Petugas!');
+            case 'guru':
+                return redirect()->intended('/guru/dashboard')->with('success', 'Selamat datang, Guru!');
+            default:
+                Auth::logout();
+                return redirect()->route('login')->withErrors('Role tidak dikenali.');
+        }
+    }
+
+    /**
+     * log out
      */
     public function logout(Request $request)
     {
