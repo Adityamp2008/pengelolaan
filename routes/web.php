@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\lokasisController;
+use App\Http\Controllers\Petugas\InventarisController;
 use App\Http\Controllers\Petugas\DashboardController as petugasdashboard;
 use App\Http\Controllers\Guru\DashboardController as gurudashboard;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +27,9 @@ Route::group(
     ],
     function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::resource('kategori', KategoriController::class);
+        Route::resource('lokasi', lokasisController::class);
+
     });
 
     /*
@@ -37,6 +43,7 @@ Route::group(
     ],
     function () {
     Route::get('/dashboard', [petugasdashboard::class, 'index'])->name('petugas.dashboard');
+    Route::resource('inventaris', InventarisController::class);
     });
     
     
