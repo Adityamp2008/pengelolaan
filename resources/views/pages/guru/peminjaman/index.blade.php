@@ -16,43 +16,56 @@
     @endif
 
     {{-- Tabel Data --}}
-    <table class="table table-bordered align-middle">
-        <thead class="table-light">
+    <table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama Barang</th>
+            <th>Tanggal Pinjam</th>
+            <th>Tanggal Kembali</th>
+            <th>Status</th>
+            <th>Keterangan</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse($peminjaman as $index => $item)
             <tr>
-                <th>No</th>
-                <th>Nama Barang</th>
-                <th>Tanggal Pinjam</th>
-                <th>Tanggal Kembali</th>
-                <th>Status</th>
-                <th>Keterangan</th>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $item->inventaris->nama_barang ?? '-' }}</td>
+                <td>{{ $item->tanggal_pinjam }}</td>
+                <td>{{ $item->tanggal_kembali }}</td>
+                <td>
+                    @if ($item->status == 'menunggu')
+                        <span class="badge bg-warning text-dark">Menunggu Verifikasi</span>
+                    @elseif ($item->status == 'disetujui')
+                        <span class="badge bg-success">Disetujui</span>
+                    @elseif ($item->status == 'ditolak')
+                        <span class="badge bg-danger">Ditolak</span>
+                    @elseif ($item->status == 'selesai')
+                        <span class="badge bg-primary">Selesai</span>
+                    @else
+                        <span class="badge bg-secondary">-</span>
+                    @endif
+                </td>
+                <td>
+                    @if ($item->status == 'disetujui')
+                        Barang sedang dipinjam
+                    @elseif ($item->status == 'selesai')
+                        Barang sudah dikembalikan
+                    @elseif ($item->status == 'ditolak')
+                        Peminjaman tidak disetujui
+                    @else
+                        Menunggu verifikasi petugas
+                    @endif
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @forelse ($peminjaman as $item)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->inventaris->nama_barang }}</td>
-                    <td>{{ $item->tanggal_pinjam }}</td>
-                    <td>{{ $item->tanggal_kembali }}</td>
-                    <td>
-                        @if ($item->status == 'Menunggu')
-                            <span class="badge bg-warning text-dark">Menunggu Verifikasi</span>
-                        @elseif ($item->status == 'Dipinjam')
-                            <span class="badge bg-primary">Dipinjam</span>
-                        @elseif ($item->status == 'Dikembalikan')
-                            <span class="badge bg-success">Dikembalikan</span>
-                        @elseif ($item->status == 'Ditolak')
-                            <span class="badge bg-danger">Ditolak</span>
-                        @endif
-                    </td>
-                    <td>{{ $item->keterangan ?? '-' }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="6" class="text-center text-muted">Belum ada pengajuan peminjaman.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+        @empty
+            <tr>
+                <td colspan="6" class="text-center">Belum ada riwayat peminjaman.</td>
+            </tr>
+        @endforelse
+    </tbody>
+</table>
+
 </div>
 @endsection

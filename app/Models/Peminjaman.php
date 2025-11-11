@@ -23,14 +23,14 @@ class Peminjaman extends Model
     ];
 
     // Barang yang dipinjam
-    public function inventaris()
-    {
-        return $this->belongsTo(Inventaris::class, 'inventaris_id');
-    }
-
-    // User (Guru/Siswa) yang meminjam
     public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+{
+    return $this->belongsTo(User::class);
+}
+
+public function inventaris()
+{
+    return $this->belongsTo(\App\Models\Inventaris::class, 'inventaris_id');
+}
+
 }

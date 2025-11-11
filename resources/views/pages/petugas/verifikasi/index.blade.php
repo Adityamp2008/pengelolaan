@@ -27,43 +27,29 @@
                     <td>{{ $data->inventaris->nama_barang }}</td>
                     <td>{{ $data->tanggal_pinjam }}</td>
                     <td>{{ $data->tanggal_kembali }}</td>
-                    <td>@if($data->status == 'pending' || $data->status == 'menunggu')
-    <a href="{{ route('petugas.verifikasi.approve', $data->id) }}" class="btn btn-success btn-sm">Setujui</a>
-    <a href="{{ route('petugas.verifikasi.reject', $data->id) }}" class="btn btn-danger btn-sm">Tolak</a>
-@elseif($data->status == 'disetujui')
-    <span class="badge bg-success">Disetujui</span>
-@elseif($data->status == 'ditolak')
-    <span class="badge bg-danger">Ditolak</span>
-@elseif($data->status == 'selesai')
-    <span class="badge bg-secondary">Selesai</span>
-@else
-    <small>Tidak ada aksi</small>
-@endif
-</td>
                     <td>
-                        @if($data->status == 'pending')
-                            <form action="{{ route('verifikasi.update', $data->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                <input type="hidden" name="status" value="disetujui">
-                                <button type="submit" class="btn btn-success btn-sm">Setujui</button>
-                            </form>
+    @if($data->status == 'pending')
+        <span class="badge bg-warning text-dark">Menunggu Verifikasi</span>
+    @elseif($data->status == 'disetujui')
+        <span class="badge bg-success">Disetujui</span>
+    @elseif($data->status == 'ditolak')
+        <span class="badge bg-danger">Ditolak</span>
+    @elseif($data->status == 'selesai')
+        <span class="badge bg-secondary">Selesai</span>
+    @endif
+</td>
 
-                            <form action="{{ route('verifikasi.update', $data->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                <input type="hidden" name="status" value="ditolak">
-                                <input type="text" name="keterangan" placeholder="Alasan..." required>
-                                <button type="submit" class="btn btn-danger btn-sm">Tolak</button>
-                            </form>
-                        @elseif($data->status == 'disetujui')
-                            <form action="{{ route('verifikasi.update', $data->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                <input type="hidden" name="status" value="selesai">
-                                <button type="submit" class="btn btn-secondary btn-sm">Selesai</button>
-                            </form>
-                        @else
-                            <small>Tidak ada aksi</small>
-                        @endif
-                    </td>
+<td>
+    @if($data->status == 'pending')
+        <a href="{{ route('petugas.verifikasi.approve', $data->id) }}" class="btn btn-success btn-sm">Setujui</a>
+        <a href="{{ route('petugas.verifikasi.reject', $data->id) }}" class="btn btn-danger btn-sm">Tolak</a>
+    @elseif($data->status == 'disetujui')
+        <a href="{{ route('petugas.verifikasi.selesai', $data->id) }}" class="btn btn-secondary btn-sm">Selesai</a>
+    @else
+        <small>Tidak ada aksi</small>
+    @endif
+</td>
+
                 </tr>
             @endforeach
         </tbody>

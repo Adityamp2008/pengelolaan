@@ -47,7 +47,18 @@ Route::group(
     Route::get('/dashboard', [petugasdashboard::class, 'index'])->name('petugas.dashboard');
     Route::resource('inventaris', InventarisController::class);
         Route::get('verifikasi', [VerifikasiPeminjamanController::class, 'index'])->name('verifikasi.index');
-    Route::get('verifikasi/{id}/{aksi}', [VerifikasiPeminjamanController::class, 'updateStatus'])->name('verifikasi.update');
+    
+
+
+
+    //verivikasi
+
+  // 🔥 Tambahkan nama prefix 'petugas.' di dalam grup ini
+        Route::prefix('verifikasi')->name('petugas.verifikasi.')->group(function () {
+            Route::get('/{id}/approve', [VerifikasiPeminjamanController::class, 'approve'])->name('approve');
+            Route::get('/{id}/reject', [VerifikasiPeminjamanController::class, 'reject'])->name('reject');
+            Route::get('/{id}/selesai', [VerifikasiPeminjamanController::class, 'selesai'])->name('selesai');
+        });
     });
     
     

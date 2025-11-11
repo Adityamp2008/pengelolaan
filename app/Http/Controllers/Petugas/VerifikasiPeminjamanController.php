@@ -8,37 +8,36 @@ use Illuminate\Http\Request;
 
 class VerifikasiPeminjamanController extends Controller
 {
-    // Menampilkan daftar pengajuan peminjaman yang belum diverifikasi
     public function index()
     {
-        $peminjaman = Peminjaman::with(['user', 'inventaris'])
-            ->orderByDesc('created_at')
-            ->get();
-
+        $peminjaman = Peminjaman::with(['user', 'inventaris'])->orderByDesc('created_at')->get();
         return view('pages.petugas.verifikasi.index', compact('peminjaman'));
     }
 
-    // Proses verifikasi oleh petugas
-    public function update(Request $request, $id)
+    public function approve($id)
     {
         $peminjaman = Peminjaman::findOrFail($id);
+        $peminjaman->update(['status' => 'disetujui']);
 
-        // Update status peminjaman
-        $peminjaman->update([
-            'status' => $request->status,
-            'keterangan' => $request->keterangan,
-        ]);
+        $peminjaman->inventaris->update(['status' => 'Dipinjam']);
 
-        // Kalau disetujui, ubah status barang jadi Dipinjam
-        if ($request->status == 'disetujui') {
-            $peminjaman->inventaris->update(['status' => 'Dipinjam']);
-        }
+        return redirect()->back()->with('success', 'Peminjaman disetujui.');
+    }
 
-        // Kalau ditolak, tetap tersedia
-        if ($request->status == 'ditolak') {
-            $peminjaman->inventaris->update(['status' => 'Tersedia']);
-        }
+    public function reject($id)
+    {
+        $peminjaman = Peminjaman::findOrFail($id);
+        $peminjaman->update(['status' => 'ditolak']);
 
-        return redirect()->route('verifikasi.index')->with('success', 'Peminjaman berhasil diverifikasi.');
+        return redirect()->back()->with('warning', 'Peminjaman ditolak.');
+    }
+
+    public function selesai($id)
+    {
+        $peminjaman = Peminjaman::findOrFail($id);
+        $peminjaman->update(['status' => 'selesai']);
+        $peminjaman->inventaris->update(['status' => 'Tersedia']);
+
+        return redirect()->back()->with('success', 'Peminjaman telah diselesaikan.');
     }
 }
