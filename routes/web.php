@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Guru\PeminjamanController;
+use App\Http\Controllers\Petugas\VerifikasiPeminjamanController;
 use App\Http\Controllers\Admin\lokasisController;
 use App\Http\Controllers\Petugas\InventarisController;
 use App\Http\Controllers\Petugas\DashboardController as petugasdashboard;
@@ -44,6 +46,8 @@ Route::group(
     function () {
     Route::get('/dashboard', [petugasdashboard::class, 'index'])->name('petugas.dashboard');
     Route::resource('inventaris', InventarisController::class);
+        Route::get('verifikasi', [VerifikasiPeminjamanController::class, 'index'])->name('verifikasi.index');
+    Route::get('verifikasi/{id}/{aksi}', [VerifikasiPeminjamanController::class, 'updateStatus'])->name('verifikasi.update');
     });
     
     
@@ -54,6 +58,7 @@ Route::group(
         ],
         function () {
         Route::get('/dashboard', [gurudashboard::class, 'index'])->name('guru.dashboard');
+        Route::resource('peminjaman', PeminjamanController::class);
         });
 
 require __DIR__ . "/auth.php";
