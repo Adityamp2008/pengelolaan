@@ -83,7 +83,7 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="{{ route('kategori.index')}}">kelola kategori</a></li>
                   <li class="nav-item"> <a class="nav-link" href="{{ route('lokasi.index')}}">kelola lokasi</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{{ route('Assets.index')}}">nonaktifkan barang</a></li>
                 </ul>
               </div>
             </li>
