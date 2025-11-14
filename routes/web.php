@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Guru\PeminjamanController;
 use App\Http\Controllers\Admin\AssetsController;
+use App\Http\Controllers\Admin\lokasisController;
 use App\Http\Controllers\Petugas\VerifikasiPeminjamanController;
 use App\Http\Controllers\Petugas\inventarisController;
 use App\Http\Controllers\Admin\InventarissController;
