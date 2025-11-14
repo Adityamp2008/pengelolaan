@@ -64,37 +64,76 @@
         </div>
       </nav>
       <div class="container-fluid page-body-wrapper">
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-          <ul class="nav">
-            <li class="nav-item">
-              <a class="nav-link {{ Route::is('rooms.*') ? 'active' : '' }}" href="{{ route('admin.dashboard')}}">
-                <i class="mdi mdi-grid-large menu-icon"></i>
-                <span class="menu-title">Dashboard</span>
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <ul class="nav">
+          
+          <li class="nav-item">
+              <a class="nav-link {{ Route::is('admin.dashboard') ? 'active' : '' }}" 
+                href="{{ route('admin.dashboard') }}">
+                  <i class="mdi mdi-grid-large menu-icon"></i>
+                  <span class="menu-title">Dashboard</span>
               </a>
-            </li>
-            <li class="nav-item nav-category">Sistem</li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <i class="menu-icon mdi mdi-floor-plan"></i>
-                <span class="menu-title">UI Elements</span>
-                <i class="menu-arrow"></i>
+          </li>
+
+          <li class="nav-item nav-category">Manajemen Sistem</li>
+
+          <!-- Menu Kategori, Lokasi, Jadwal -->
+          <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#manajemenData" 
+                  aria-expanded="false" aria-controls="manajemenData">
+                  <i class="menu-icon mdi mdi-folder"></i>
+                  <span class="menu-title">Manajemen Data</span>
+                  <i class="menu-arrow"></i>
               </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="{{ route('kategori.index')}}">kelola kategori</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="{{ route('lokasi.index')}}">kelola lokasi</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
-                </ul>
+              <div class="collapse" id="manajemenData">
+                  <ul class="nav flex-column sub-menu">
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('kategori.index') }}">
+                              Kelola Kategori
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('lokasi.index') }}">
+                              Kelola Lokasi
+                          </a>
+                      </li>
+                  </ul>
               </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="docs/documentation.html">
-                <i class="menu-icon mdi mdi-file-document"></i>
-                <span class="menu-title">Documentation</span>
+          </li>
+
+          <!-- Menu Inventaris -->
+          <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#inventarisMenu" 
+                  aria-expanded="false" aria-controls="inventarisMenu">
+                  <i class="menu-icon mdi mdi-package-variant"></i>
+                  <span class="menu-title">Inventaris</span>
+                  <i class="menu-arrow"></i>
               </a>
-            </li>
-          </ul>
-        </nav>
+              <div class="collapse" id="inventarisMenu">
+                  <ul class="nav flex-column sub-menu">
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('ainventaris.index') }}">
+                              Data Inventaris
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('jadwal.index') }}">
+                              Jadwal Perbaikan
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+          </li>
+
+          <!-- Dokumentasi -->
+          <li class="nav-item">
+              <a class="nav-link" href="docs/documentation.html">
+                  <i class="menu-icon mdi mdi-file-document"></i>
+                  <span class="menu-title">Documentation</span>
+              </a>
+          </li>
+      </ul>
+  </nav>
         <!-- partial -->
         <div class="main-panel">
             

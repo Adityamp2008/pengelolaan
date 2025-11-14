@@ -23,6 +23,13 @@ return new class extends Migration
     $table->string('status')->default('Tersedia'); // Tersedia, Rusak, Dipinjam
     $table->date('tanggal_perolehan')->nullable();
     $table->timestamps();
+
+    $table->boolean('request_hapus')->default(false);
+    $table->string('status_request_hapus')->default('none');
+
+    $table->boolean('request_edit')->default(false);
+    $table->string('status_request_edit')->default('none');
+
 });
 
     }
