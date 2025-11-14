@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="assets/js/select.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css')}}">
     <link rel="shortcut icon" href="{{ asset('frontend/assets/images/favicon.png')}}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   </head>
   <body class="with-welcome-text">
     <div class="container-scroller">
@@ -67,7 +68,7 @@
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link {{ Route::is('rooms.*') ? 'active' : '' }}" href="{{ route('admin.dashboard')}}">
+              <a class="nav-link {{ Route::is('rooms.*') ? 'active' : '' }}" href="{{ route('petugas.dashboard')}}">
                 <i class="mdi mdi-grid-large menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
               </a>

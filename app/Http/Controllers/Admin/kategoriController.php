@@ -30,20 +30,26 @@ class kategoriController extends Controller
 
     public function edit($id)
     {
-        $kategori = Kategori::findOrFail($id);
-        return view('pages.admin.kategori.edit', compact('kategori'));
+        $kategoriEdit = Kategori::findOrFail($id);
+        $kategori = Kategori::all();
+    
+        return view('pages.admin.kategori.edit', compact('kategoriEdit', 'kategori'));
     }
-
+    
     public function update(Request $request, $id)
     {
         $request->validate([
             'nama_kategori' => 'required|string|max:255|unique:kategori,nama_kategori,' . $id,
         ]);
-
+    
         $kategori = Kategori::findOrFail($id);
-        $kategori->update($request->all());
-        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui.');
+        $kategori->update(['nama_kategori' => $request->nama_kategori]);
+    
+        return redirect()->route('kategori.index', $kategori->id)
+                         ->with('success', 'Kategori berhasil diperbarui!');
     }
+
+
 
     public function destroy($id)
     {

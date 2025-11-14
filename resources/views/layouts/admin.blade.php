@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
     <link rel="stylesheet" type="text/css" href="assets/js/select.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="shortcut icon" href="{{ asset('frontend/assets/images/favicon.png')}}" />
   </head>
   <body class="with-welcome-text">
@@ -72,21 +73,30 @@
                 <span class="menu-title">Dashboard</span>
               </a>
             </li>
-            <li class="nav-item nav-category">Sistem</li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <i class="menu-icon mdi mdi-floor-plan"></i>
-                <span class="menu-title">UI Elements</span>
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic"
+                 aria-expanded="{{ Route::is('kategori.*') || Route::is('lokasi.*') ? 'true' : 'false' }}"
+                 aria-controls="ui-basic">
+                <i class="menu-icon mdi mdi-folder"></i>
+                <span class="menu-title">Master Data</span>
                 <i class="menu-arrow"></i>
               </a>
-              <div class="collapse" id="ui-basic">
+              <div class="collapse {{ Route::is('kategori.*') || Route::is('lokasi.*') ? 'show' : '' }}" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="{{ route('kategori.index')}}">kelola kategori</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="{{ route('lokasi.index')}}">kelola lokasi</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                  <li class="nav-item">
+                    <a class="nav-link {{ Route::is('kategori.*') ? 'active' : '' }}" href="{{ route('kategori.index') }}">
+                      Kelola Kategori
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link {{ Route::is('lokasi.*') ? 'active' : '' }}" href="{{ route('lokasi.index') }}">
+                      Kelola Lokasi
+                    </a>
+                  </li>
                 </ul>
               </div>
             </li>
+
             <li class="nav-item">
               <a class="nav-link" href="docs/documentation.html">
                 <i class="menu-icon mdi mdi-file-document"></i>
