@@ -28,7 +28,6 @@ public function formLapor($id)
             'nama_barang' => Inventaris::find($request->inventaris_id)->nama_barang,
             'lokasi' => Inventaris::find($request->inventaris_id)->lokasi->nama_lokasi ?? '-',
             'deskripsi_kerusakan' => $request->deskripsi_kerusakan,
-            'pelapor' => Auth::user()->name,
         ]);
 
         return redirect()->route('guru.inventaris.index')
