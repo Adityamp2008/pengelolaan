@@ -5,9 +5,11 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Guru\PeminjamanController;
-use App\Http\Controllers\Petugas\VerifikasiPeminjamanController;
+use App\Http\Controllers\Admin\AssetsController;
 use App\Http\Controllers\Admin\lokasisController;
-use App\Http\Controllers\Petugas\InventarisController;
+use App\Http\Controllers\Petugas\VerifikasiPeminjamanController;
+use App\Http\Controllers\Petugas\inventarisController;
+use App\Http\Controllers\Admin\InventarissController;
 use App\Http\Controllers\Petugas\DashboardController as petugasdashboard;
 use App\Http\Controllers\Guru\DashboardController as gurudashboard;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +33,16 @@ Route::group(
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::resource('kategori', KategoriController::class);
         Route::resource('lokasi', lokasisController::class);
+
+
+            Route::get('/admin/assets', [AssetsController::class, 'index'])->name('Assets.index');
+
+    Route::post('/admin/assets/{id}/nonaktif', [AssetsController::class, 'nonaktifkan'])
+        ->name('Assets.nonaktif');
+
+    Route::post('/admin/assets/{id}/aktif', [AssetsController::class, 'aktifkan'])
+        ->name('Assets.aktif');
+
 
     });
 

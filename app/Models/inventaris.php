@@ -13,7 +13,8 @@ class Inventaris extends Model
         'lokasi_id',
         'kondisi',
         'status',
-        'tanggal_perolehan'
+        'tanggal_perolehan',
+        'is_active'
     ];
 
     public function kategori()
@@ -25,5 +26,9 @@ class Inventaris extends Model
     {
         return $this->belongsTo(Lokasi::class);
     }
-}
 
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class, 'inventaris_id');
+    }
+}
