@@ -8,7 +8,7 @@
         <div class="card-body">
             <h4 class="fw-semibold text-primary mb-4">Tambah Barang Inventaris</h4>
 
-            <form action="{{ route('inventaris.store') }}" method="POST">
+            <form action="{{ route('inventari.store') }}" method="POST">
                 @csrf
                 <div class="row g-3">
                     <div class="col-md-6">
@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end mt-4">
-                    <a href="{{ route('inventaris.index') }}" class="btn btn-secondary text-dark me-2">
+                    <a href="{{ route('inventari.index') }}" class="btn btn-secondary text-dark me-2">
                         <i class="fa-solid fa-arrow-left me-1"></i> Kembali
                     </a>
                     <button type="submit" class="btn btn-primary">

@@ -35,13 +35,15 @@ Route::group(
         Route::resource('lokasi', lokasisController::class);
 
 
-            Route::get('/admin/assets', [AssetsController::class, 'index'])->name('Assets.index');
+            Route::get('/assets', [AssetsController::class, 'index'])->name('Assets.index');
 
-    Route::post('/admin/assets/{id}/nonaktif', [AssetsController::class, 'nonaktifkan'])
+    Route::post('/assets/{id}/nonaktif', [AssetsController::class, 'nonaktifkan'])
         ->name('Assets.nonaktif');
 
-    Route::post('/admin/assets/{id}/aktif', [AssetsController::class, 'aktifkan'])
+    Route::post('/assets/{id}/aktif', [AssetsController::class, 'aktifkan'])
         ->name('Assets.aktif');
+        
+       
 
 
     });
@@ -57,7 +59,7 @@ Route::group(
     ],
     function () {
     Route::get('/dashboard', [petugasdashboard::class, 'index'])->name('petugas.dashboard');
-    Route::resource('inventaris', InventarisController::class);
+    Route::resource('inventari', InventarisController::class);
         Route::get('verifikasi', [VerifikasiPeminjamanController::class, 'index'])->name('verifikasi.index');
     
 
@@ -65,7 +67,6 @@ Route::group(
 
     //verivikasi
 
-  // 🔥 Tambahkan nama prefix 'petugas.' di dalam grup ini
         Route::prefix('verifikasi')->name('petugas.verifikasi.')->group(function () {
             Route::get('/{id}/approve', [VerifikasiPeminjamanController::class, 'approve'])->name('approve');
             Route::get('/{id}/reject', [VerifikasiPeminjamanController::class, 'reject'])->name('reject');

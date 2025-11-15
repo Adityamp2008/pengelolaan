@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Inventariss;
+use App\Models\Inventaris;
 use Illuminate\Http\Request;
 
 class InventarissController extends Controller

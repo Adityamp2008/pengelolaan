@@ -37,7 +37,7 @@ class InventarisController extends Controller
 
         Inventaris::create($request->all());
 
-        return redirect()->route('inventaris.index')->with('success', 'Data inventaris berhasil ditambahkan.');
+        return redirect()->route('inventari.index')->with('success', 'Data inventaris berhasil ditambahkan.');
     }
 
     public function edit($id)

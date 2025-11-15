@@ -83,22 +83,11 @@
               </a>
               <div class="collapse {{ Route::is('kategori.*') || Route::is('lokasi.*') ? 'show' : '' }}" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-<<<<<<< HEAD
-                  <li class="nav-item">
-                    <a class="nav-link {{ Route::is('kategori.*') ? 'active' : '' }}" href="{{ route('kategori.index') }}">
-                      Kelola Kategori
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link {{ Route::is('lokasi.*') ? 'active' : '' }}" href="{{ route('lokasi.index') }}">
-                      Kelola Lokasi
-                    </a>
-                  </li>
-=======
+
                   <li class="nav-item"> <a class="nav-link" href="{{ route('kategori.index')}}">kelola kategori</a></li>
                   <li class="nav-item"> <a class="nav-link" href="{{ route('lokasi.index')}}">kelola lokasi</a></li>
                   <li class="nav-item"> <a class="nav-link" href="{{ route('Assets.index')}}">nonaktifkan barang</a></li>
->>>>>>> 061c788936f8844d5d6b4bc4fe93c5255eb47b90
+
                 </ul>
               </div>
             </li>

@@ -8,7 +8,7 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="mb-0 fw-semibold text-primary">Data Inventaris</h4>
-                <a href="{{ route('inventaris.create') }}" class="btn btn-primary">
+                <a href="{{ route('inventari.create') }}" class="btn btn-primary">
                     <i class="fa-solid fa-plus me-1"></i> Tambah Barang
                 </a>
             </div>
@@ -48,10 +48,10 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('inventaris.edit', $i->id) }}" class="btn btn-outline-warning btn-sm rounded m-1">
+                                        <a href="{{ route('inventari.edit', $i->id) }}" class="btn btn-outline-warning btn-sm rounded m-1">
                                             <i class="fa-solid fa-pencil"></i>
                                         </a>
-                                        <form action="{{ route('inventaris.destroy', $i->id) }}" method="POST" onsubmit="return confirm('Hapus data ini?')">
+                                        <form action="{{ route('inventari.destroy', $i->id) }}" method="POST" onsubmit="return confirm('Hapus data ini?')">
                                             @csrf @method('DELETE')
                                             <button class="btn btn-danger btn-sm rounded m-1">
                                                 <i class="fa-solid fa-trash"></i>
