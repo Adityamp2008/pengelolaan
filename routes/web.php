@@ -49,12 +49,15 @@ Route::group(
             [AssetsController::class, 'aktifkan'])->name('Assets.aktif');
         Route::get('ainventaris/{id}/hapus', 
             [AInventarisController::class, 'hapusForm'])->name('ainventaris.hapusForm');
+        Route::post('/assets/update-status/{id}', 
+            [AssetsController::class, 'updateStatus']);
 
 
         Route::resource('kategori', KategoriController::class);
         Route::resource('lokasi', lokasisController::class);
         Route::resource('jadwal', JadwalController::class);
         Route::resource('ainventaris', AInventarisController::class);
+        
             });
 
     /*
