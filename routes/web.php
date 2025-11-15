@@ -10,6 +10,7 @@ use App\Http\Controllers\Petugas\InventarisController;
 use App\Http\Controllers\Admin\AInventarisController;
 use App\Http\Controllers\petugas\KerusakanController;
 use App\Http\Controllers\guru\LaporKerusakanController;
+use App\Http\Controllers\guru\PeminjamanController;
 use App\Http\Controllers\Petugas\DashboardController as petugasdashboard;
 use App\Http\Controllers\Guru\DashboardController as gurudashboard;
 use Illuminate\Support\Facades\Route;
@@ -69,6 +70,7 @@ Route::group(
         function () {
         Route::get('/dashboard', [gurudashboard::class, 'index'])->name('guru.dashboard');
         Route::resource('laporkerusakan', LaporKerusakanController::class);
+        Route::resouece('peminjaman', PeminjamanController::class);
         });
 
 require __DIR__ . "/auth.php";
