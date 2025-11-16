@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AssetsController;
 use App\Http\Controllers\Admin\lokasisController;
 use App\Http\Controllers\Admin\AInventarisController;
 use App\Http\Controllers\Admin\JadwalController;
+use App\Http\Controllers\Admin\UsersController;
 
     //penulisan untuk petugas
 use App\Http\Controllers\Petugas\InventarisController;
@@ -16,9 +17,12 @@ use App\Http\Controllers\Petugas\VerifikasiPeminjamanController;
 use App\Http\Controllers\petugas\KerusakanController;
 use App\Http\Controllers\Petugas\DashboardController as petugasdashboard;
 
-    //penulisan untuk petugas
+//penulisan untuk guru
 use App\Http\Controllers\guru\LaporKerusakanController;
+use App\Http\Controllers\guru\PeminjamanController;
 use App\Http\Controllers\Guru\DashboardController as gurudashboard;
+
+
 use Illuminate\Support\Facades\Route;
 
 // === Auth ===
@@ -51,12 +55,21 @@ Route::group(
             [AInventarisController::class, 'hapusForm'])->name('ainventaris.hapusForm');
         Route::post('/assets/update-status/{id}', 
             [AssetsController::class, 'updateStatus']);
+        Route::put('/users/{user}/reset-password', 
+            [UsersController::class, 'resetPassword'])->name('users.reset');
+        Route::put('/users/{user}/toggle-status', 
+            [UsersController::class, 'toggleStatus'])->name('users.toggle');
+        Route::patch('/users/{user}/toggle-status', 
+            [UsersController::class, 'toggleStatus'])->name('users.toggleStatus');
+
 
 
         Route::resource('kategori', KategoriController::class);
         Route::resource('lokasi', lokasisController::class);
         Route::resource('jadwal', JadwalController::class);
         Route::resource('ainventaris', AInventarisController::class);
+        Route::resource('users', UsersController::class);
+        
         
             });
 
@@ -97,7 +110,12 @@ Route::group(
         ],
         function () {
         Route::get('/dashboard', [gurudashboard::class, 'index'])->name('guru.dashboard');
-        Route::resource('laporkerusakan', LaporKerusakanController::class);
+        // Route::resource('laporkerusakan', LaporKerusakanController::class);
+        Route::get('laporkerusakan/{id}', [LaporKerusakanController::class, 'formLapor'])
+            ->name('guru.lapor');
+        Route::post('laporkerusakan/store', [LaporKerusakanController::class, 'storeLaporan'])
+            ->name('guru.lapor.store');
+        Route::resource('peminjaman', PeminjamanController::class);
         });
 
 require __DIR__ . "/auth.php";

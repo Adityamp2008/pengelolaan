@@ -16,7 +16,7 @@
     <div class="card shadow-sm">
         <div class="card-body table-responsive">
             <table class="table table-bordered table-striped">
-                <thead>
+                <thead class="table-primary">
                     <tr>
                         <th>No</th>
                         <th>Nama Barang</th>

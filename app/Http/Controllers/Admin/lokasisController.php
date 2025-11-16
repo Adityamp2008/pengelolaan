@@ -30,9 +30,12 @@ class lokasisController extends Controller
 
     public function edit($id)
     {
-        $lokasi = lokasi::findOrFail($id);
-        return view('pages.admin.lokasi.edit', compact('lokasi'));
+        $lokasiEdit = lokasi::findOrFail($id);
+        $lokasi = lokasi::latest()->get();
+
+        return view('pages.admin.lokasi.edit', compact('lokasiEdit', 'lokasi'));
     }
+
 
     public function update(Request $request, $id)
     {

@@ -50,7 +50,7 @@ class AInventarisController extends Controller
         $kategori = Kategori::all();
         $lokasi = Lokasi::all();
 
-        return view('pages.admin.ainventaris.edit', compact('inventaris', 'kategori', 'lokasi'));
+        return view('pages.admin.ainventaris.edit', compact('ainventaris', 'kategori', 'lokasi'));
     }
 
     public function update(Request $request, $id)

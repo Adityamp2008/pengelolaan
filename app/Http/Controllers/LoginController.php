@@ -19,27 +19,38 @@ class LoginController extends Controller
     /**
      * Proses autentikasi .
      */
-    public function loginAction(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+public function loginAction(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
 
-        $credentials = $request->only('email', 'password');
+    $credentials = $request->only('email', 'password');
 
+    // Ambil user berdasarkan email dulu
+    $user = \App\Models\User::where('email', $credentials['email'])->first();
+
+    if ($user) {
+        if (!$user->is_active) {
+            // User dinonaktifkan
+            return back()->withErrors([
+                'email' => 'Akun Anda sedang dinonaktifkan.'
+            ])->onlyInput('email');
+        }
+
+        // Cek login
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            $user = Auth::user();
-
             return $this->redirectByRole($user->role);
         }
-
-        return back()
-            ->withErrors(['email' => 'Email atau password salah.'])
-            ->onlyInput('email');
     }
+
+    // Default: login gagal
+    return back()->withErrors(['email' => 'Email atau password salah.'])->onlyInput('email');
+}
+
 
     /**
      *
