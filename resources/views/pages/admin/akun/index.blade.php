@@ -11,17 +11,16 @@
         <h3>Manajemen Akun</h3>
 
         <!-- Tombol Tambah Akun -->
-        <a href="{{ route('users.create') }}" class="btn btn-primary shadow-sm">
+        <a href="{{ route('users.create') }}" class="btn btn-primary shadow-lg rounded-3">
             <i class="mdi mdi-account-plus"></i> Tambah Akun
         </a>
     </div>
 
     @if (session('success'))
-        <div class="alert alert-success shadow-sm">{{ session('success') }}</div>
+        <div class="alert alert-success shadow-lg rounded-3">{{ session('success') }}</div>
     @endif
 
-
-    <div class="card shadow-sm">
+    <div class="card shadow-lg rounded-4">
         <div class="card-body p-0">
 
             <table class="table table-bordered table-striped mb-0">
@@ -31,7 +30,7 @@
                         <th>Email</th>
                         <th>Role</th>
                         <th>Status</th>
-                        <th width="120px">Aksi</th>
+                        <th width="140px">Aksi</th>
                     </tr>
                 </thead>
 
@@ -43,23 +42,22 @@
                         <td>{{ ucfirst($user->role) }}</td>
 
                         <td>
-                            <span class="badge bg-{{ $user->is_active ? 'success':'danger' }}">
+                            <span class="badge bg-{{ $user->is_active ? 'success':'danger' }} shadow-sm">
                                 {{ $user->is_active ? 'Aktif':'Nonaktif' }}
                             </span>
                         </td>
 
                         <td class="text-center">
 
-
                             <!-- Lihat Detail -->
-                            <button class="btn btn-sm btn-info shadow-sm"
+                            <button class="btn btn-sm btn-info shadow-sm rounded-3"
                                 data-bs-toggle="modal"
                                 data-bs-target="#modalDetail{{ $user->id }}">
                                 <i class="fa fa-eye"></i>
                             </button>
 
                             <!-- Edit -->
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning shadow-sm">
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning shadow-sm rounded-3">
                                 <i class="fa fa-pencil"></i>
                             </a>
 
@@ -70,18 +68,17 @@
                                 @csrf
                                 @method('PATCH')
 
-                                <button class="btn btn-sm {{ $user->is_active ? 'btn-secondary' : 'btn-success' }} shadow-sm"
+                                <button class="btn btn-sm {{ $user->is_active ? 'btn-secondary' : 'btn-success' }} shadow-sm rounded-3"
                                         onclick="return confirm('Ubah status akun ini?')">
 
                                     @if($user->is_active)
-                                        <i class="fa fa-ban"></i> <!-- Nonaktifkan -->
+                                        <i class="fa fa-ban"></i>
                                     @else
-                                        <i class="fa fa-check"></i> <!-- Aktifkan -->
+                                        <i class="fa fa-check"></i>
                                     @endif
 
                                 </button>
                             </form>
-
 
                             <!-- Hapus -->
                             <form action="{{ route('users.destroy', $user->id) }}"
@@ -90,7 +87,7 @@
                                 @csrf
                                 @method('DELETE')
 
-                                <button class="btn btn-sm btn-danger shadow-sm"
+                                <button class="btn btn-sm btn-danger shadow-sm rounded-3"
                                         onclick="return confirm('Hapus akun ini?')">
                                     <i class="fa fa-trash"></i>
                                 </button>
@@ -99,13 +96,10 @@
                         </td>
                     </tr>
 
-
-                    <!-- ========================== -->
                     <!-- Modal Detail -->
-                    <!-- ========================== -->
                     <div class="modal fade" id="modalDetail{{ $user->id }}" tabindex="-1">
                         <div class="modal-dialog">
-                            <div class="modal-content shadow">
+                            <div class="modal-content shadow-lg rounded-4">
 
                                 <div class="modal-header bg-primary text-white">
                                     <h5 class="modal-title">Detail Akun</h5>
@@ -113,7 +107,6 @@
                                 </div>
 
                                 <div class="modal-body">
-
                                     <p><strong>Nama:</strong> {{ $user->name }}</p>
                                     <p><strong>Email:</strong> {{ $user->email }}</p>
                                     <p><strong>Role:</strong> {{ ucfirst($user->role) }}</p>
@@ -123,12 +116,6 @@
                                             {{ $user->is_active ? 'Aktif':'Nonaktif' }}
                                         </span>
                                     </p>
-
-                                    {{-- <p class="text-danger mt-3">
-                                        <strong>Password:</strong>
-                                        Password tidak dapat ditampilkan karena sudah terenkripsi.
-                                    </p> --}}
-
                                 </div>
 
                             </div>
