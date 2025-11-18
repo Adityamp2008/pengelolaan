@@ -122,21 +122,20 @@
                               <li class="nav-item">
                                   <a class="nav-link {{ Route::is('kategori.*') ? 'active' : '' }}"
                                     href="{{ route('kategori.index') }}">
-                                    <i class="mdi mdi-tag-multiple me-2"></i> Kelola Kategori
+                                    Kelola Kategori
                                   </a>
                               </li>
 
                               <li class="nav-item">
                                   <a class="nav-link {{ Route::is('lokasi.*') ? 'active' : '' }}"
                                     href="{{ route('lokasi.index') }}">
-                                    <i class="mdi mdi-map-marker me-2"></i> Kelola Lokasi
+                                     Kelola Lokasi
                                   </a>
                               </li>
 
                               <li class="nav-item">
                                   <a class="nav-link {{ Route::is('Assets.*') ? 'active' : '' }}"
-                                    href="{{ route('Assets.index') }}">
-                                    <i class="mdi mdi-cancel me-2"></i> Nonaktifkan Barang
+                                    href="{{ route('Assets.index') }}"> Nonaktifkan Barang
                                   </a>
                               </li>
                           </ul>
@@ -161,14 +160,14 @@
                               <li class="nav-item">
                                   <a class="nav-link {{ Route::is('ainventaris.*') ? 'active' : '' }}"
                                     href="{{ route('ainventaris.index') }}">
-                                    <i class="mdi mdi-package-variant me-2"></i> Data Inventaris
+                                     Data Inventaris
                                   </a>
                               </li>
 
                               <li class="nav-item">
                                   <a class="nav-link {{ Route::is('jadwal.*') ? 'active' : '' }}"
-                                    href="{{ route('jadwal.index') }}">
-                                    <i class="mdi mdi-calendar-wrench me-2"></i> Jadwal Perbaikan
+                                    href="{{ route('jadwal.index') }}"> 
+                                    Jadwal Perbaikan
                                   </a>
                               </li>
                           </ul>
