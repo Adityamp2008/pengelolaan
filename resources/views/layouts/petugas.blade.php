@@ -100,12 +100,6 @@
         <!-- partial -->
         <div class="main-panel">
             
-            <ul class="navbar-nav">
-              <li class="nav-item  d-none d-lg-block ms-0">
-                <h3 class="welcome-text">Selamat datang <span class="text-black fw-bold">{{Auth()->user()->name}}</span></h3>
-              </li>
-            </ul>
-            
             @yield('content')
             
           <footer class="footer">
