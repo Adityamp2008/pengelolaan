@@ -6,25 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('kerusakans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('nama_barang');
-            $table->string('nama_lokasi');
+
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onDelete('cascade');
+
+            $table->foreignId('inventaris_id')
+                ->constrained('inventaris')
+                ->onDelete('cascade');
+
+            // Tidak perlu nama_barang & lokasi karena ambil dari Inventaris
             $table->text('deskripsi_kerusakan');
-            $table->enum('status', ['Tertunda','Diproses','Selesai'])->default('Tertunda');
+
+            $table->enum('status', ['Menunggu Petugas','Diproses','Selesai','Tertunda'])
+                ->default('Menunggu Petugas'); // <-- diperbaiki
+
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('kerusakans');

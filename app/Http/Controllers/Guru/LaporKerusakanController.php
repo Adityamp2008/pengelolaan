@@ -1,54 +1,47 @@
 <?php
 
-namespace App\Http\Controllers\guru;
+namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use App\Models\Inventaris;
 use App\Models\Kerusakan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LaporKerusakanController extends Controller
 {
-    /**
-     * Tampilkan form laporan kerusakan untuk inventaris tertentu.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-    public function formLapor($id)
+    // Menampilkan daftar inventaris rusak
+    public function index()
     {
-        $inventaris = Inventaris::with('lokasi')->findOrFail($id);
+        $inventaris = Inventaris::whereIn('kondisi', ['rusak ringan', 'rusak berat'])->get();
 
-        return view('pages.guru.laporkerusakan.index', [
-            'inventaris' => $inventaris
-        ]);
+        return view('pages.guru.laporkerusakan.index', compact('inventaris'));
     }
 
-    /**
-     * Simpan laporan kerusakan ke database.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function storeLaporan(Request $request)
+    // Form untuk menambah laporan kerusakan
+    public function create(Request $request)
     {
-        $validated = $request->validate([
+        // Ambil barang berdasarkan ID yang dikirim dari tombol
+        $inventaris = Inventaris::findOrFail($request->inventaris_id);
+
+        return view('pages.guru.laporkerusakan.create', compact('inventaris'));
+    }
+
+    // Menyimpan laporan kerusakan
+    public function store(Request $request)
+    {
+        $request->validate([
             'inventaris_id' => 'required|exists:inventaris,id',
-            'deskripsi_kerusakan' => 'required|string|max:255',
+            'deskripsi_kerusakan' => 'required|string|max:500',
         ]);
 
-        // Ambil data inventaris dalam satu query
-        $inventaris = Inventaris::with('lokasi')->findOrFail($validated['inventaris_id']);
-
-        Kerusakan::create([
-            'inventaris_id'        => $inventaris->id,
-            'nama_barang'          => $inventaris->nama_barang,
-            'lokasi'               => $inventaris->lokasi->nama_lokasi ?? '-',
-            'deskripsi_kerusakan'  => $validated['deskripsi_kerusakan'],
+        kerusakan::create([
+            'inventaris_id' => $request->inventaris_id,
+            'user_id' => Auth::id(),
+            'deskripsi_kerusakan' => $request->deskripsi_kerusakan,
+            'status' => 'Menunggu Petugas',
         ]);
 
-        return redirect()
-            ->route('guru.inventaris.index')
-            ->with('success', 'Laporan kerusakan berhasil dikirim ke petugas.');
+        return redirect()->route('laporkerusakan.index')->with('success', 'Laporan kerusakan berhasil dikirim!');
     }
 }

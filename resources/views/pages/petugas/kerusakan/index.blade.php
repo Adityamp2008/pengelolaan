@@ -5,7 +5,7 @@
 
 @if(auth()->user()->role == 'guru')
 <!-- GURU / SISWA bisa lapor -->
-<form action="{{ route('kerusakan.store') }}" method="POST" class="card p-3 mb-4">
+<form action="{{ route('laporkerusakan.store') }}" method="POST" class="card p-3 mb-4">
     @csrf
     <input type="text" name="nama_barang" placeholder="Nama barang" class="form-control mb-2" required>
     <input type="text" name="lokasi" placeholder="Lokasi" class="form-control mb-2" required>
@@ -29,7 +29,7 @@
     <tr>
         <td>{{ $item->user->name }}</td>
         <td>{{ $item->nama_barang }}</td>
-        <td>{{ $item->lokasi->nama_lokasi }}</td>
+        <td>{{ $item->nama_lokasi ?? $item->lokasi ?? '-' }}</td>
         <td>{{ $item->deskripsi_kerusakan }}</td>
         <td>
             @if(auth()->user()->role == 'admin')
@@ -48,7 +48,7 @@
 
         @if(auth()->user()->role == 'admin')
         <td>
-            <form action="{{ route('kerusakan.delete', $item->id) }}" method="POST">
+            <form action="{{ route('laporkerusakan.delete', $item->id) }}" method="POST">
                 @csrf @method('DELETE')
                 <button class="btn btn-danger btn-sm">Hapus</button>
             </form>

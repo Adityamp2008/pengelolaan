@@ -100,7 +100,7 @@
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"><a class="nav-link" href="{{ route('peminjaman.index')}}">Kelola Peminjaman</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ route('laporkerusakan.index')}}">Laporkan kerusakan</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route(name: 'laporkerusakan.index')}}">Laporkan kerusakan</a></li>
                         </ul>
                     </div>
                 </li>

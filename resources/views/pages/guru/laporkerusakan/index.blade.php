@@ -1,40 +1,41 @@
 @extends('layouts.guru')
 
 @section('content')
-<div class="container">
 
-    <h3 class="mb-4">Lapor Kerusakan Inventaris</h3>
+<h3 class="mb-4">Daftar Inventaris Rusak</h3>
 
-    <div class="card shadow-sm">
-        <div class="card-body">
+@if(session('success'))
+<div class="alert alert-success">{{ session('success') }}</div>
+@endif
 
-            <form action="{{ route('guru.kerusakan.store') }}" method="POST">
-                @csrf
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nama Barang</th>
+            <th>Lokasi</th>
+            <th>Kondisi</th>
+            <th>Tanggal Input</th>
+            <th>Lapor Kerusakan</th>
+        </tr>
+    </thead>
 
-                <div class="mb-3">
-                    <label class="form-label">Nama Barang</label>
-                    <input type="text" class="form-control" value="{{ $inventaris->nama_barang }}" readonly>
-                </div>
+    <tbody>
+        @foreach ($inventaris as $item)
+        <tr>
+            <td>{{ $item->nama_barang }}</td>
+            <td>{{ $item->lokasi->nama_lokasi ?? '-' }}</td>
+            <td><span class="badge bg-danger">{{ $item->kondisi }}</span></td>
+            <td>{{ $item->tanggal_perolehan ? date('d-m-Y', strtotime($item->tanggal_perolehan)) : '-' }}</td>
 
-                <div class="mb-3">
-                    <label class="form-label">Lokasi Barang</label>
-                    <input type="text" class="form-control" value="{{ $inventaris->lokasi->nama_lokasi ?? '-' }}" readonly>
-                </div>
+            <td>
+                <a href="{{ route('laporkerusakan.create', ['inventaris_id' => $item->id]) }}"
+                   class="btn btn-danger btn-sm">
+                    Lapor Kerusakan
+                </a>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 
-                <input type="hidden" name="inventaris_id" value="{{ $inventaris->id }}">
-
-                <div class="mb-3">
-                    <label class="form-label">Deskripsi Kerusakan</label>
-                    <textarea name="deskripsi_kerusakan" class="form-control" rows="4" required
-                        placeholder="Tuliskan detail kerusakan barang..."></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Kirim Laporan</button>
-                <a href="{{ route('guru.inventaris.index') }}" class="btn btn-secondary">Kembali</a>
-
-            </form>
-        </div>
-    </div>
-
-</div>
 @endsection

@@ -111,10 +111,7 @@ Route::group(
         function () {
         Route::get('/dashboard', [gurudashboard::class, 'index'])->name('guru.dashboard');
         // Route::resource('laporkerusakan', LaporKerusakanController::class);
-        Route::get('laporkerusakan/{id}', [LaporKerusakanController::class, 'formLapor'])
-            ->name('guru.lapor');
-        Route::post('laporkerusakan/store', [LaporKerusakanController::class, 'storeLaporan'])
-            ->name('guru.lapor.store');
+        Route::resource('laporkerusakan', LaporKerusakanController::class);
         Route::resource('peminjaman', PeminjamanController::class);
         });
 
